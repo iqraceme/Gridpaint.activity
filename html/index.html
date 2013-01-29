@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<head>
+<title>Grid Paint</title>
+<link href="enyo/enyo.css" rel="stylesheet" type="text/css" />	
+<script src="enyo/enyo.js" type="text/javascript"></script>
+<style type="text/css">@import "gridpaint.css";</style>
+<script type="text/javascript" src="debug.js"></script>
+<script type="text/javascript" src="events.js"></script>
+<script type="text/javascript" src="gridpaint.js"></script>
+<script type="text/javascript" src="thumbnails.js"></script>
+<script type="text/javascript" src="gallery.js"></script>
+<script type="text/javascript" src="shapedefs.js"></script>
+<script type="text/javascript" src="depends.js"></script>
+
+
+</head>
+<body onload="appInit();">
+<div class="frame" id="frame">
+<canvas class="gridcnv" id="gridcnv"></canvas>
+<canvas class="gridcnv" id="hitbuffer"></canvas>
+<div class="thumbframe" id="thumbframe">
+</div>
+</div>
+</body>
+</html>
