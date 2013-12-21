@@ -1,3 +1,29 @@
+//Copyright (c) 2013, Playful Invention Company.
+
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+
+//The above copyright notice and this permission notice shall be included in
+//all copies or substantial portions of the Software.
+
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//THE SOFTWARE.
+
+// -----
+
+// GridPaint has been kept extremely minimal as an explicit design choice.
+// If you want to add features please make a fork with a different name.
+// Thanks in advance
+
 var frame, cnv, hitbuffer;
 var shapes=[], colors=[];
 var cnames = ['red', 'yellow', '#ff6600', '#764300', 'limegreen', 'blue', 'darkmagenta', 'black', 'white'];
@@ -6,6 +32,7 @@ var bselected = 0;
 var newcolor=cnames[bselected], changed=false;
 var scale = 708/600;
 var fname = 'sqgridpos';
+var sugar = null;
 
 /////////////////////////
 //
@@ -24,14 +51,16 @@ function appInit(){
 	if(hsplit.length==3) fname = hsplit[1];
 	for(var i=0;i<shapedefs.length;i++) newShape(shapedefs[i]);
 	for(var i=0;i<shapes.length;i++) colors.push('red');
-	///
 	sugar = new Sugar();
 	sugar.connect("save-gallery", saveGallery);
 	sugar.connect("load-gallery", loadGallery);
 	sugar.sendMessage("ready");
-	///
 	eventInit();
-	loadPos(0);
+	if (mode == 'edit')
+		editMode();
+	else
+		selectorMode();
+	loadPos(selected);
 	hittestInit();
 	thumbsInit();
 	drawButtons();

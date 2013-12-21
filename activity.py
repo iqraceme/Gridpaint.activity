@@ -1,8 +1,37 @@
 ﻿#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Grid paint activity
+#Copyright (c) 2013, Playful Invention Company.
 
+#Permission is hereby granted, free of charge, to any person obtaining a copy
+#of this software and associated documentation files (the "Software"), to deal
+#in the Software without restriction, including without limitation the rights
+#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#copies of the Software, and to permit persons to whom the Software is
+#furnished to do so, subject to the following conditions:
+
+#The above copyright notice and this permission notice shall be included in
+#all copies or substantial portions of the Software.
+
+#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#THE SOFTWARE.
+
+# -----
+
+# Grid paint activity
+#
+# by Brian Silverman
+# adapted for the XO by Lionel Laské
+#
+
+# GridPaint has been kept extremely minimal as an explicit design choice.
+# If you want to add features please make a fork with a different name.
+# Thanks in advance
 
 
 from gi.repository import Gtk
@@ -42,11 +71,11 @@ class GridpaintActivity(activity.Activity):
         self.make_toolbar()
         self.make_mainview()
 
-        self.gallery = None
+        self.context = None
 
 
     def init_context(self, args):
-        self.enyo.send_message("load-gallery", self.gallery)
+        self.enyo.send_message("load-gallery", self.context)
 
 
     def make_mainview(self):
@@ -112,26 +141,31 @@ class GridpaintActivity(activity.Activity):
 
     def write_file(self, file_path):
         "Called when activity is saved, get the current context in Enyo"
-        if self.gallery is None:
+        if self.context is None:
             return
         self.file_path = file_path
         file = open(self.file_path, 'w')
         try:
-            file.write(self.gallery+'\n')
+            file.write(self.context['gallery']+'\n')
+            file.write(self.context['mode']+'\n')
+            file.write(str(self.context['selected'])+'\n')
         finally:
             file.close()
 
 
-    def save_gallery(self, gallery):
+    def save_gallery(self, context):
         "Called by JavaScript to save the current gallery"
-        self.gallery = gallery
+        self.context = context
 
 
     def read_file(self, file_path):
         "Called when activity is loaded, load the current context in the file"
         file = open(file_path, 'r')
-        self.gallery = None
+        self.context = None
         try:
-            self.gallery = file.readline().strip('\n')
+            gallery = file.readline().strip('\n')
+            mode = file.readline().strip('\n')
+            selected = file.readline().strip('\n')
+            self.context = { 'gallery': gallery, 'mode': mode, 'selected': selected }
         finally:
             file.close()

@@ -1,8 +1,8 @@
 [Activity]
-name = Grid paint
+name = Grid Paint
 activity_version = 1
 bundle_id = org.olpcfrance.Gridpaint
 exec = sugar-activity activity.GridpaintActivity
-icon = activity-enyo
+icon = activity-gridpaint
 mime_types = application/x-gridpaint-activity;
-license = GPLv2+
+license = MIT

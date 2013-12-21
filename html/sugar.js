@@ -1,4 +1,6 @@
 ﻿// Enyo interface for Sugar
+//
+// by Lionel Laské
 
 enyo.Sugar = {};
 enyo.Sugar.component = null;

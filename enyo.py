@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # Sugar interface for Enyo JavaScript framework
+#
+# by Lionel Laské
 
 import logging
 import json
