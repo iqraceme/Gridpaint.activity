@@ -1,8 +1,6 @@
 [Activity]
 name = Grid Paint
-activity_version = 1
+activity_version = 2
 bundle_id = org.olpcfrance.Gridpaint
-exec = sugar-activity activity.GridpaintActivity
-icon = activity-gridpaint
-mime_types = application/x-gridpaint-activity;
-license = MIT
+exec = sugar-activity-web
+icon = activity-icon
